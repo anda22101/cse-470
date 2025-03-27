@@ -17,4 +17,4 @@ install it with our own password (ensure you remember you password) and adjust i
 
 
 # to run the program
-open the terminal in app
+uvicorn app.main:app --reload
