@@ -1,0 +1,6 @@
+#### To install dependency in one shot ####
+pip install -r requirements.txt
+
+
+## run everytime you install something new ##
+pip freeze > requirements.txt
