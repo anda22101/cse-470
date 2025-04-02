@@ -12,7 +12,7 @@ DATABASE_URL = "postgresql+asyncpg://anda:andalib@localhost:2210/quizwizz"
 
 engine = create_async_engine(DATABASE_URL, echo=True)
 
-SessionLocal = sessionmaker(bind=engine, class_=AsyncSession, expire_on_commit=False)
+SessionLocal = sessionmaker(bind=engine, class_=AsyncSession, expire_on_commit=False, autocommit = False, autoflush = False)
 
 Base = declarative_base()
 
