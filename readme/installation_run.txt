@@ -1,0 +1,51 @@
+# install virtual environment
+python3 -m venv  .venv
+.venv\Scripts\activate
+
+
+
+
+# Database Setup
+run pip install requirement.txt to install postgresql
+visit https://www.postgresql.org/download/windows/ to download install
+and download the latest version 17.4
+install it with our own password (ensure you remember you password) and adjust it using chatgpt
+add bin path to environmental variables and restart
+open cmd and run the following lines
+psql -U postgres -h localhost -p your port number   # need to enter root password
+CREATE DATABASE quizwizz;
+\l # see if the database is listed
+CREATE USER anda WITH PASSWORD 'andalib';
+\du # see if the user is listed
+ALTER DATABASE quizwizz OWNER TO anda;
+GRANT ALL PRIVILEGES ON DATABASE quizwizz TO anda;
+GRANT CREATE, CONNECT ON DATABASE quizwizz TO anda;
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO anda;
+\q # exit for now
+psql -U anda -h localhost -p 5432 -d quizwizz    # may be prompted to give pasword = andalib
+\dt;
+reload the app and your database will be created 
+
+# TO VIEW DB AND MANAGE IT IN VS 
+## Install PostgreSQL Extension in VS Code
+Open VS Code.
+Go to Extensions (Ctrl + Shift + X).
+Search for "PostgreSQL".
+Install "PostgreSQL" by Chris Kolkman (or a similar one).
+Restart VS Code if needed.
+
+## Connect to Your PostgreSQL Database
+Open the PostgreSQL extension (Click on the PostgreSQL icon in the left sidebar).
+Click "Add New Connection".
+Enter your database details:
+Host: localhost
+Port: 2210
+User: anda
+Password: andalib
+Database: quizwizz
+Click "Connect".
+
+
+
+# to run the program
+uvicorn app.main:app --reload
