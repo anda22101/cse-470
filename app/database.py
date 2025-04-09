@@ -2,8 +2,7 @@ from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession, async_sess
 from sqlalchemy.orm import declarative_base
 from typing import AsyncGenerator
 
-DATABASE_URL = "postgresql+asyncpg://anda:andalib@localhost:2210/quizwizz"  # Changed to asyncpg
-
+DATABASE_URL = "postgresql+asyncpg://anda:andalib@localhost:2210/quizwizz"  
 engine = create_async_engine(DATABASE_URL, echo=True)
 async_session_maker = async_sessionmaker(bind=engine, expire_on_commit=False)
 

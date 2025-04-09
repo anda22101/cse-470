@@ -9,13 +9,13 @@ router = APIRouter(tags=['Authentication'])
 @router.post('/login')
 async def login(
     request: Request,
-    username: str = Form(...),
+    email: str = Form(...),
     password: str = Form(...),
     db: AsyncSession = Depends(get_db)
 ):
     
     
-    result = await db.execute(select(user_model.User).where(user_model.User.username == username))
+    result = await db.execute(select(user_model.User).where(user_model.User.email == email))
     user = result.scalar_one_or_none()
 
     if not user:
@@ -25,5 +25,5 @@ async def login(
     if user.password != password:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid password")
 
-    request.session["username"] = user.username
+    request.session["email"] = user.email
     return {"message": "Login successful"}
