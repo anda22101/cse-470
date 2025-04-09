@@ -1,22 +1,14 @@
-from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy.ext.declarative import declarative_base
-import urllib.parse
+from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession, async_sessionmaker
+from sqlalchemy.orm import declarative_base
+from typing import AsyncGenerator
 
-
-
-DATABASE_URL = "postgresql+asyncpg://anda:andalib@localhost:2210/quizwizz"
-
-
-
+DATABASE_URL = "postgresql+asyncpg://anda:andalib@localhost:2210/quizwizz"  # Changed to asyncpg
 
 engine = create_async_engine(DATABASE_URL, echo=True)
-
-SessionLocal = sessionmaker(bind=engine, class_=AsyncSession, expire_on_commit=False, autocommit = False, autoflush = False)
+async_session_maker = async_sessionmaker(bind=engine, expire_on_commit=False)
 
 Base = declarative_base()
 
-
-async def get_db():
-    async with SessionLocal() as session:
+async def get_db() -> AsyncGenerator[AsyncSession, None]:
+    async with async_session_maker() as session:
         yield session
