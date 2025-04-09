@@ -3,6 +3,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 from ..models import user_model
 from ..database import get_db
+from ..session import *
 
 router = APIRouter(tags=['Authentication'])
 
@@ -25,5 +26,5 @@ async def login(
     if user.password != password:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid password")
 
-    request.session["email"] = user.email
+    set_user_session(request, email)
     return {"message": "Login successful"}

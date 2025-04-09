@@ -45,7 +45,9 @@ Password: andalib
 Database: quizwizz
 Click "Connect".
 
-
+# to upgrade schema 
+alembic revision --autogenerate -m "any message"
+alembic upgrade head
 
 # to run the program
 uvicorn app.main:app --reload
